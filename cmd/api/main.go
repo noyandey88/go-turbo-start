@@ -9,6 +9,7 @@ import (
 	"syscall"
 	"time"
 
+	_ "go-starter-kit/docs"
 	"go-starter-kit/internal/server"
 )
 

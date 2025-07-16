@@ -1,4 +1,35 @@
+basePath: /
+definitions:
+  server.HttpResponse:
+    properties:
+      message:
+        type: string
+      payload: {}
+      status:
+        type: integer
+      success:
+        type: boolean
+    type: object
+host: localhost:8080
 info:
   contact: {}
-paths: {}
+  description: This is a sample server for a Go application with Swagger rapidly.
+  title: Go Turbo Starter API
+  version: "1.0"
+paths:
+  /api/hello:
+    get:
+      consumes:
+      - application/json
+      description: Returns a hello message
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/server.HttpResponse'
+      summary: Say Greetings
+      tags:
+      - hello
 swagger: "2.0"

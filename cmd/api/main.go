@@ -38,6 +38,11 @@ func gracefulShutdown(apiServer *http.Server, done chan bool) {
 	done <- true
 }
 
+// @title Go Turbo Starter API
+// @version 1.0
+// @description This is a sample server for a Go application with Swagger rapidly.
+// @host localhost:8080
+// @BasePath /
 func main() {
 
 	server := server.NewServer()

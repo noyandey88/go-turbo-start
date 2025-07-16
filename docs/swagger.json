@@ -1,7 +1,53 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "This is a sample server for a Go application with Swagger rapidly.",
+        "title": "Go Turbo Starter API",
+        "contact": {},
+        "version": "1.0"
     },
-    "paths": {}
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/api/hello": {
+            "get": {
+                "description": "Returns a hello message",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "hello"
+                ],
+                "summary": "Say Greetings",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/server.HttpResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "server.HttpResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "payload": {},
+                "status": {
+                    "type": "integer"
+                },
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
 }

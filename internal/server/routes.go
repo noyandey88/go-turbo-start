@@ -4,7 +4,16 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+
+	httpSwagger "github.com/swaggo/http-swagger"
 )
+
+type HttpResponse struct {
+	Status  int    `json:"status"`
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+	Payload any    `json:"payload"`
+}
 
 func (s *Server) RegisterRoutes() http.Handler {
 	mux := http.NewServeMux()
@@ -13,6 +22,10 @@ func (s *Server) RegisterRoutes() http.Handler {
 	mux.HandleFunc("/", s.HelloWorldHandler)
 
 	mux.HandleFunc("/health", s.healthHandler)
+
+	mux.HandleFunc("/api/hello", HelloHandler)
+
+	mux.Handle("/swagger/", httpSwagger.WrapHandler)
 
 	// Wrap the mux with CORS middleware
 	return s.corsMiddleware(mux)
@@ -60,4 +73,27 @@ func (s *Server) healthHandler(w http.ResponseWriter, r *http.Request) {
 	if _, err := w.Write(resp); err != nil {
 		log.Printf("Failed to write response: %v", err)
 	}
+}
+
+// HelloHandler godoc
+// @Summary Say Greetings
+// @Description Returns a hello message
+// @Tags hello
+// @Accept json
+// @Produce json
+// @Success 200 {object} HttpResponse
+// @Router /api/hello [get]
+func HelloHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	response := HttpResponse{
+		Status:  http.StatusOK,
+		Success: true,
+		Message: "Hello from Go Swagger App!",
+		Payload: map[string]string{
+			"name": "Noyan",
+		},
+	}
+
+	json.NewEncoder(w).Encode(response)
 }
